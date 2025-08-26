@@ -1,0 +1,927 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AirPods Pro Store - Premium Wireless Audio Experience{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Hero Section with 3D Model */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #000 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #86868B;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 16px 32px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            border-color: #007AFF;
+            color: #007AFF;
+            transform: translateY(-2px);
+        }
+        
+        /* 3D Canvas Container */
+        .canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        #airpods-canvas {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+        
+        #airpods-canvas:active {
+            cursor: grabbing;
+        }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2s forwards;
+        }
+        
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(45deg); }
+            40% { transform: translateY(-10px) rotate(45deg); }
+            60% { transform: translateY(-5px) rotate(45deg); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1D1D1F;
+        }
+        
+        .feature-description {
+            color: #86868B;
+            line-height: 1.6;
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1D1D1F;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #86868B;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1D1D1F;
+        }
+        
+        .product-description {
+            color: #86868B;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .current-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #007AFF;
+        }
+        
+        .original-price {
+            font-size: 1rem;
+            color: #86868B;
+            text-decoration: line-through;
+        }
+        
+        .discount-badge {
+            background: #FF3B30;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .add-to-cart-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, #1D1D1F 0%, #2D2D2F 100%);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .newsletter-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .newsletter-subtitle {
+            font-size: 1.2rem;
+            color: #86868B;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 15px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .newsletter-btn {
+            background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .features-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <!-- Hero Section with 3D AirPods -->
+    <section class="hero-section" id="hero">
+        <div class="canvas-container">
+            <canvas id="airpods-canvas"></canvas>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitle">AirPods Pro</h1>
+            <p class="hero-subtitle" id="heroSubtitle">Experience audio like never before with active noise cancellation and spatial audio</p>
+            <div class="hero-cta" id="heroCta">
+                <a href="{{ path('app_products') }}" class="btn-primary">Shop Now</a>
+                <a href="#features" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose AirPods Pro?</h2>
+            <p class="section-subtitle">Discover the features that make AirPods Pro the ultimate wireless audio experience</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3 class="feature-title">Active Noise Cancellation</h3>
+                    <p class="feature-description">Block out the world and immerse yourself in your music with industry-leading noise cancellation technology.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔊</div>
+                    <h3 class="feature-title">Spatial Audio</h3>
+                    <p class="feature-description">Experience theater-like sound that surrounds you with dynamic head tracking for an immersive listening experience.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔋</div>
+                    <h3 class="feature-title">All-Day Battery</h3>
+                    <p class="feature-description">Up to 6 hours of listening time with ANC on, and up to 30 hours total with the charging case.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💧</div>
+                    <h3 class="feature-title">Sweat & Water Resistant</h3>
+                    <p class="feature-description">IPX4-rated protection means your AirPods Pro can handle sweat and water during workouts and daily use.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Quick Charge</h3>
+                    <p class="feature-description">Just 5 minutes in the case gives you around 1 hour of listening time or talk time.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Perfect Fit</h3>
+                    <p class="feature-description">Three sizes of soft, flexible silicone tips ensure a comfortable, secure fit that creates an acoustic seal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    {% if featured_products %}
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <p class="section-subtitle">Discover our most popular AirPods and accessories</p>
+            
+            <div class="products-grid">
+                {% for product in featured_products %}
+                <div class="product-card">
+                    <div class="product-image">
+                        {% if product.mainImage %}
+                            <img src="{{ asset('images/products/' ~ product.mainImage) }}" alt="{{ product.name }}" loading="lazy">
+                        {% else %}
+                            <div style="width: 200px; height: 150px; background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🎧</div>
+                        {% endif %}
+                        {% if product.hasDiscount %}
+                            <div class="discount-badge">-{{ product.discountPercentage }}%</div>
+                        {% endif %}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-description">{{ product.shortDescription|slice(0, 100) }}{% if product.shortDescription|length > 100 %}...{% endif %}</p>
+                        <div class="product-price">
+                            <span class="current-price">{{ product.formattedPrice }}</span>
+                            {% if product.hasDiscount %}
+                                <span class="original-price">{{ product.formattedOriginalPrice }}</span>
+                            {% endif %}
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart({{ product.id }})">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="{{ path('app_products') }}" class="btn-primary">View All Products</a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2 class="newsletter-title">Stay Updated</h2>
+            <p class="newsletter-subtitle">Get the latest news about new products and exclusive offers</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // 3D AirPods Model Setup
+        let scene, camera, renderer, airpodsModel, mixer;
+        let mouseX = 0, mouseY = 0;
+        let targetRotationX = 0, targetRotationY = 0;
+        let isAnimating = false;
+        let scrollProgress = 0;
+        
+        function init3DScene() {
+            const canvas = document.getElementById('airpods-canvas');
+            const container = canvas.parentElement;
+            
+            // Scene setup
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            
+            // Lighting setup
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 5, 5);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            scene.add(directionalLight);
+            
+            const pointLight1 = new THREE.PointLight(0x007AFF, 0.5, 100);
+            pointLight1.position.set(-10, 10, 10);
+            scene.add(pointLight1);
+            
+            const pointLight2 = new THREE.PointLight(0x5AC8FA, 0.5, 100);
+            pointLight2.position.set(10, -10, 10);
+            scene.add(pointLight2);
+            
+            // Create 3D AirPods model (since we don't have GLTF file, we'll create a stylized version)
+            createAirPodsModel();
+            
+            camera.position.set(0, 0, 5);
+            
+            // Mouse interaction
+            canvas.addEventListener('mousemove', onMouseMove);
+            canvas.addEventListener('touchmove', onTouchMove);
+            
+            // Scroll interaction
+            window.addEventListener('scroll', onScroll);
+            
+            animate();
+        }
+        
+        function createAirPodsModel() {
+            const group = new THREE.Group();
+            
+            // Create stylized AirPods
+            const earbudGeometry = new THREE.CapsuleGeometry(0.3, 1.5, 4, 8);
+            const earbudMaterial = new THREE.MeshPhysicalMaterial({
+                color: 0xffffff,
+                metalness: 0.1,
+                roughness: 0.1,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.1
+            });
+            
+            // Left AirPod
+            const leftAirPod = new THREE.Mesh(earbudGeometry, earbudMaterial);
+            leftAirPod.position.set(-0.8, 0, 0);
+            leftAirPod.rotation.z = Math.PI * 0.1;
+            leftAirPod.castShadow = true;
+            leftAirPod.receiveShadow = true;
+            group.add(leftAirPod);
+            
+            // Right AirPod
+            const rightAirPod = new THREE.Mesh(earbudGeometry, earbudMaterial);
+            rightAirPod.position.set(0.8, 0, 0);
+            rightAirPod.rotation.z = -Math.PI * 0.1;
+            rightAirPod.castShadow = true;
+            rightAirPod.receiveShadow = true;
+            group.add(rightAirPod);
+            
+            // Charging case
+            const caseGeometry = new THREE.BoxGeometry(2.5, 1, 1.5);
+            const caseMaterial = new THREE.MeshPhysicalMaterial({
+                color: 0xffffff,
+                metalness: 0.05,
+                roughness: 0.2,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.1
+            });
+            
+            const chargingCase = new THREE.Mesh(caseGeometry, caseMaterial);
+            chargingCase.position.set(0, -2.5, 0);
+            chargingCase.castShadow = true;
+            chargingCase.receiveShadow = true;
+            group.add(chargingCase);
+            
+            // Add some blue accent lighting
+            const accentGeometry = new THREE.RingGeometry(0.1, 0.15, 16);
+            const accentMaterial = new THREE.MeshBasicMaterial({
+                color: 0x007AFF,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const leftAccent = new THREE.Mesh(accentGeometry, accentMaterial);
+            leftAccent.position.set(-0.8, -0.5, 0.31);
+            group.add(leftAccent);
+            
+            const rightAccent = new THREE.Mesh(accentGeometry, accentMaterial);
+            rightAccent.position.set(0.8, -0.5, 0.31);
+            group.add(rightAccent);
+            
+            airpodsModel = group;
+            scene.add(airpodsModel);
+            
+            // Initial animation
+            gsap.from(airpodsModel.scale, {
+                duration: 2,
+                x: 0, y: 0, z: 0,
+                ease: "back.out(1.7)"
+            });
+        }
+        
+        function onMouseMove(event) {
+            const canvas = document.getElementById('airpods-canvas');
+            const rect = canvas.getBoundingClientRect();
+            mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        }
+        
+        function onTouchMove(event) {
+            if (event.touches.length === 1) {
+                const canvas = document.getElementById('airpods-canvas');
+                const rect = canvas.getBoundingClientRect();
+                mouseX = ((event.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+                mouseY = -((event.touches[0].clientY - rect.top) / rect.height) * 2 + 1;
+            }
+        }
+        
+        function onScroll() {
+            const scrollTop = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            scrollProgress = Math.min(scrollTop / windowHeight, 1);
+            
+            if (airpodsModel) {
+                // AirPods open animation on scroll
+                const leftPod = airpodsModel.children[0];
+                const rightPod = airpodsModel.children[1];
+                const chargingCase = airpodsModel.children[2];
+                
+                if (scrollProgress < 0.3) {
+                    // AirPods in case
+                    leftPod.position.set(-0.4, -1.8, 0.2);
+                    rightPod.position.set(0.4, -1.8, 0.2);
+                    leftPod.rotation.set(Math.PI, 0, 0);
+                    rightPod.rotation.set(Math.PI, 0, 0);
+                } else if (scrollProgress < 0.6) {
+                    // AirPods opening
+                    const progress = (scrollProgress - 0.3) / 0.3;
+                    leftPod.position.set(-0.4 - progress * 0.4, -1.8 + progress * 1.8, 0.2 - progress * 0.2);
+                    rightPod.position.set(0.4 + progress * 0.4, -1.8 + progress * 1.8, 0.2 - progress * 0.2);
+                    leftPod.rotation.set(Math.PI * (1 - progress), 0, Math.PI * 0.1 * progress);
+                    rightPod.rotation.set(Math.PI * (1 - progress), 0, -Math.PI * 0.1 * progress);
+                } else {
+                    // AirPods leaving the case
+                    const progress = (scrollProgress - 0.6) / 0.4;
+                    leftPod.position.set(-0.8, progress * 2, 0);
+                    rightPod.position.set(0.8, progress * 2, 0);
+                    leftPod.rotation.set(0, 0, Math.PI * 0.1);
+                    rightPod.rotation.set(0, 0, -Math.PI * 0.1);
+                    
+                    // Make case fade out
+                    chargingCase.material.opacity = 1 - progress;
+                    chargingCase.material.transparent = true;
+                }
+            }
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (airpodsModel) {
+                // Smooth mouse interaction
+                targetRotationX = mouseY * 0.2;
+                targetRotationY = mouseX * 0.2;
+                
+                airpodsModel.rotation.x += (targetRotationX - airpodsModel.rotation.x) * 0.05;
+                airpodsModel.rotation.y += (targetRotationY - airpodsModel.rotation.y) * 0.05;
+                
+                // Floating animation
+                airpodsModel.position.y = Math.sin(Date.now() * 0.001) * 0.1;
+                
+                // Accent lights pulsing
+                if (airpodsModel.children[4] && airpodsModel.children[5]) {
+                    const pulse = (Math.sin(Date.now() * 0.003) + 1) * 0.5;
+                    airpodsModel.children[4].material.opacity = 0.3 + pulse * 0.5;
+                    airpodsModel.children[5].material.opacity = 0.3 + pulse * 0.5;
+                }
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Resize handler
+        function onWindowResize() {
+            const canvas = document.getElementById('airpods-canvas');
+            const container = canvas.parentElement;
+            
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+        
+        window.addEventListener('resize', onWindowResize);
+        
+        // Initialize 3D scene when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            init3DScene();
+            
+            // Animate hero content
+            gsap.timeline()
+                .to('#heroTitle', { duration: 1, opacity: 1, y: 0, ease: 'power3.out' })
+                .to('#heroSubtitle', { duration: 1, opacity: 1, y: 0, ease: 'power3.out' }, '-=0.5')
+                .to('#heroCta', { duration: 1, opacity: 1, y: 0, ease: 'power3.out' }, '-=0.5');
+        });
+        
+        // Scroll animations for sections
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate section titles
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.fromTo(title, 
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1, y: 0, duration: 1,
+                    scrollTrigger: {
+                        trigger: title,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        // Animate section subtitles
+        gsap.utils.toArray('.section-subtitle').forEach(subtitle => {
+            gsap.fromTo(subtitle,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1, y: 0, duration: 1,
+                    scrollTrigger: {
+                        trigger: subtitle,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        // Animate feature cards
+        gsap.utils.toArray('.feature-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1, y: 0, duration: 0.8,
+                    delay: index * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        // Animate product cards
+        gsap.utils.toArray('.product-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1, y: 0, duration: 0.8,
+                    delay: index * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        // Animate newsletter section
+        gsap.utils.toArray('.newsletter-title, .newsletter-subtitle, .newsletter-form').forEach((el, index) => {
+            gsap.fromTo(el,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1, y: 0, duration: 0.8,
+                    delay: index * 0.2,
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        // Add to cart functionality
+        function addToCart(productId) {
+            fetch(`{{ path('app_cart_add', {'id': 'PRODUCT_ID'}) }}`.replace('PRODUCT_ID', productId), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ quantity: 1 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    updateCartCount();
+                    showNotification('Product added to cart!', 'success');
+                } else {
+                    showNotification(data.error || 'Error adding product to cart', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error adding product to cart', 'error');
+            });
+        }
+        
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            // Simulate newsletter subscription
+            showNotification('Thank you for subscribing!', 'success');
+            event.target.reset();
+        }
+        
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                color: white;
+                border-radius: 8px;
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
+{% endblock %}
