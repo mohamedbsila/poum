@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'auth.login.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">{{ 'auth.login.title'|trans }}</h2>
+                    <p class="text-muted">{{ 'auth.login.subtitle'|trans|default('Connectez-vous à votre compte') }}</p>
+                </div>
+
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">{{ 'auth.login.email'|trans }}</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">
+                            {{ 'validation.email'|trans }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{ 'auth.login.password'|trans }}</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="invalid-feedback">
+                            {{ 'validation.required'|trans }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me">
+                        <label class="form-check-label" for="remember_me">
+                            {{ 'auth.login.remember_me'|trans }}
+                        </label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>{{ 'auth.login.title'|trans }}
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="mb-0">
+                        {{ 'auth.login.no_account'|trans }}
+                        <a href="{{ path('app_register') }}" class="text-decoration-none">
+                            {{ 'auth.login.sign_up'|trans }}
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

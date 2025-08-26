@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'cart.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mb-4">{{ 'cart.title'|trans }}</h1>
+
+    {% if cart_items is empty %}
+        <div class="text-center py-5">
+            <i class="fas fa-shopping-cart fa-4x text-muted mb-4"></i>
+            <h3 class="text-muted">{{ 'cart.empty'|trans }}</h3>
+            <p class="text-muted mb-4">{{ 'cart.empty_message'|trans|default('Votre panier est vide. Commencez à faire vos achats!') }}</p>
+            <a href="{{ path('app_products') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-shopping-bag me-2"></i>{{ 'cart.continue_shopping'|trans }}
+            </a>
+        </div>
+    {% else %}
+        <div class="row">
+            <!-- Cart Items -->
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ 'cart.items'|trans|default('Articles dans votre panier') }}</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for item in cart_items %}
+                            <div class="cart-item" data-cart-item="{{ item.product.id }}">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        {% if item.product.image %}
+                                            <img src="{{ asset('images/products/' ~ item.product.image) }}" 
+                                                 class="img-fluid rounded" alt="{{ item.product.name }}">
+                                        {% else %}
+                                            <div class="bg-light d-flex align-items-center justify-content-center rounded" style="height: 80px;">
+                                                <i class="fas fa-box fa-2x text-muted"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="mb-1">{{ item.product.name }}</h6>
+                                        <small class="text-muted">{{ item.product.category.name }}</small>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="text-primary fw-bold">{{ item.product.price|number_format(2) }} DT</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-group input-group-sm">
+                                            <button class="btn btn-outline-secondary quantity-minus" type="button">-</button>
+                                            <input type="number" class="form-control text-center cart-quantity" 
+                                                   value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}"
+                                                   data-product-id="{{ item.product.id }}">
+                                            <button class="btn btn-outline-secondary quantity-plus" type="button">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span class="fw-bold">{{ item.subtotal|number_format(2) }} DT</span>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <form action="{{ path('app_cart_remove', {'id': item.product.id}) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm remove-from-cart" 
+                                                    data-product-id="{{ item.product.id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if not loop.last %}
+                                <hr>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Cart Actions -->
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ path('app_products') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>{{ 'cart.continue_shopping'|trans }}
+                    </a>
+                    <form action="{{ path('app_cart_clear') }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-outline-danger" 
+                                onclick="return confirm('{{ 'cart.clear_confirm'|trans|default('Êtes-vous sûr de vouloir vider votre panier?') }}')">
+                            <i class="fas fa-trash me-2"></i>{{ 'cart.clear'|trans }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ 'cart.order_summary'|trans|default('Résumé de la commande') }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>{{ 'cart.subtotal'|trans }}</span>
+                            <span>{{ total|number_format(2) }} DT</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>{{ 'cart.shipping'|trans|default('Livraison') }}</span>
+                            <span class="text-success">{{ 'cart.free'|trans|default('Gratuit') }}</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-3">
+                            <strong>{{ 'cart.total'|trans }}</strong>
+                            <strong class="text-primary cart-total">{{ total|number_format(2) }} DT</strong>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <a href="{{ path('app_order_checkout') }}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-credit-card me-2"></i>{{ 'cart.checkout'|trans }}
+                            </a>
+                        </div>
+
+                        <div class="mt-3">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <small>{{ 'cart.payment_info'|trans|default('Paiement à la livraison - Pas de paiement en ligne') }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Info -->
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h6><i class="fas fa-shield-alt text-success me-2"></i>{{ 'cart.security'|trans|default('Achat sécurisé') }}</h6>
+                        <small class="text-muted">
+                            {{ 'cart.security_info'|trans|default('Vos données sont protégées et votre commande est sécurisée.') }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Quantity controls
+    const quantityControls = document.querySelectorAll('.cart-quantity');
+    
+    quantityControls.forEach(input => {
+        const minusBtn = input.parentElement.querySelector('.quantity-minus');
+        const plusBtn = input.parentElement.querySelector('.quantity-plus');
+        
+        minusBtn.addEventListener('click', function() {
+            const currentValue = parseInt(input.value) || 1;
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+                updateCartItem(input);
+            }
+        });
+        
+        plusBtn.addEventListener('click', function() {
+            const currentValue = parseInt(input.value) || 1;
+            const maxStock = parseInt(input.getAttribute('max'));
+            if (currentValue < maxStock) {
+                input.value = currentValue + 1;
+                updateCartItem(input);
+            }
+        });
+        
+        input.addEventListener('change', function() {
+            updateCartItem(input);
+        });
+    });
+    
+    function updateCartItem(input) {
+        const productId = input.dataset.productId;
+        const quantity = input.value;
+        
+        // Show loading state
+        input.disabled = true;
+        
+        // Send AJAX request to update cart
+        fetch(`/cart/update/${productId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `quantity=${quantity}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update total
+                document.querySelector('.cart-total').textContent = data.total + ' DT';
+                
+                // Update item subtotal
+                const cartItem = input.closest('.cart-item');
+                const subtotalElement = cartItem.querySelector('.col-md-1 .fw-bold');
+                if (subtotalElement) {
+                    subtotalElement.textContent = data.itemSubtotal + ' DT';
+                }
+                
+                // Show success message
+                showNotification('{{ 'cart.updated'|trans|default("Panier mis à jour") }}', 'success');
+            } else {
+                showNotification('{{ 'cart.update_error'|trans|default("Erreur lors de la mise à jour") }}', 'error');
+            }
+        })
+        .catch(error => {
+            showNotification('{{ 'cart.update_error'|trans|default("Erreur lors de la mise à jour") }}', 'error');
+        })
+        .finally(() => {
+            input.disabled = false;
+        });
+    }
+    
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+        notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+        notification.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 3000);
+    }
+});
+</script>
+{% endblock %}
