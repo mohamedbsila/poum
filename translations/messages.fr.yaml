@@ -1,0 +1,147 @@
+site:
+  name: 'Boutique E-Commerce'
+
+nav:
+  home: 'Accueil'
+  products: 'Produits'
+  about: 'À propos'
+  contact: 'Contact'
+  login: 'Connexion'
+  register: 'Inscription'
+  logout: 'Déconnexion'
+  my_orders: 'Mes commandes'
+
+search:
+  placeholder: 'Rechercher des produits...'
+
+home:
+  title: 'Bienvenue sur notre boutique en ligne'
+  hero:
+    title: 'Découvrez nos produits exceptionnels'
+    subtitle: 'Livraison gratuite et paiement à la livraison pour tous vos achats'
+    shop_now: 'Acheter maintenant'
+  categories:
+    title: 'Nos catégories'
+    view_products: 'Voir les produits'
+  featured:
+    title: 'Produits vedettes'
+    view_all: 'Voir tous les produits'
+  features:
+    delivery:
+      title: 'Livraison rapide'
+      description: 'Livraison gratuite dans toute la Tunisie'
+    payment:
+      title: 'Paiement sécurisé'
+      description: 'Paiement à la livraison - Pas de paiement en ligne'
+    security:
+      title: 'Achat sécurisé'
+      description: 'Vos données sont protégées'
+
+product:
+  in_stock: 'en stock'
+  view_details: 'Voir les détails'
+  add_to_cart: 'Ajouter au panier'
+  login_to_buy: 'Se connecter pour acheter'
+  out_of_stock: 'Rupture de stock'
+  quantity: 'Quantité'
+  description: 'Description'
+  price: 'Prix'
+  category: 'Catégorie'
+
+cart:
+  title: 'Mon panier'
+  empty: 'Votre panier est vide'
+  subtotal: 'Sous-total'
+  total: 'Total'
+  checkout: 'Commander'
+  continue_shopping: 'Continuer les achats'
+  remove: 'Supprimer'
+  update: 'Mettre à jour'
+  clear: 'Vider le panier'
+
+order:
+  checkout:
+    title: 'Finaliser la commande'
+    shipping_address: 'Adresse de livraison'
+    phone: 'Téléphone'
+    notes: 'Notes (optionnel)'
+    payment_method: 'Méthode de paiement'
+    cash_on_delivery: 'Paiement à la livraison'
+    place_order: 'Passer la commande'
+  success:
+    title: 'Commande confirmée'
+    message: 'Votre commande a été placée avec succès!'
+    order_number: 'Numéro de commande'
+    total: 'Total'
+    payment_info: 'Vous paierez à la livraison'
+  my_orders:
+    title: 'Mes commandes'
+    order_number: 'N° Commande'
+    date: 'Date'
+    status: 'Statut'
+    total: 'Total'
+    view: 'Voir'
+  status:
+    pending: 'En attente'
+    processing: 'En cours'
+    shipped: 'Expédiée'
+    delivered: 'Livrée'
+    cancelled: 'Annulée'
+
+admin:
+  dashboard:
+    title: 'Tableau de bord'
+    total_orders: 'Total commandes'
+    pending_orders: 'Commandes en attente'
+    total_products: 'Total produits'
+    total_users: 'Total utilisateurs'
+    recent_orders: 'Commandes récentes'
+  orders:
+    title: 'Gestion des commandes'
+    update_status: 'Mettre à jour le statut'
+  products:
+    title: 'Gestion des produits'
+    new: 'Nouveau produit'
+    edit: 'Modifier le produit'
+    name: 'Nom'
+    description: 'Description'
+    price: 'Prix'
+    stock: 'Stock'
+    image: 'Image'
+    category: 'Catégorie'
+    save: 'Enregistrer'
+  categories:
+    title: 'Gestion des catégories'
+    new: 'Nouvelle catégorie'
+
+footer:
+  about: 'À propos'
+  description: 'Votre boutique en ligne de confiance pour tous vos besoins'
+  quick_links: 'Liens rapides'
+  contact: 'Contact'
+  rights: 'Tous droits réservés'
+
+auth:
+  login:
+    title: 'Connexion'
+    email: 'Email'
+    password: 'Mot de passe'
+    remember_me: 'Se souvenir de moi'
+    forgot_password: 'Mot de passe oublié?'
+    no_account: 'Pas de compte?'
+    sign_up: "S'inscrire"
+  register:
+    title: 'Inscription'
+    first_name: 'Prénom'
+    last_name: 'Nom'
+    email: 'Email'
+    password: 'Mot de passe'
+    confirm_password: 'Confirmer le mot de passe'
+    already_account: 'Déjà un compte?'
+    sign_in: 'Se connecter'
+
+validation:
+  required: 'Ce champ est requis'
+  email: 'Veuillez entrer un email valide'
+  min_length: 'Ce champ doit contenir au moins {{ limit }} caractères'
+  password_mismatch: 'Les mots de passe ne correspondent pas'

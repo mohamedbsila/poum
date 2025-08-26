@@ -1,0 +1,147 @@
+site:
+  name: 'متجر إلكتروني'
+
+nav:
+  home: 'الرئيسية'
+  products: 'المنتجات'
+  about: 'حول'
+  contact: 'اتصل بنا'
+  login: 'تسجيل الدخول'
+  register: 'التسجيل'
+  logout: 'تسجيل الخروج'
+  my_orders: 'طلباتي'
+
+search:
+  placeholder: 'البحث عن المنتجات...'
+
+home:
+  title: 'مرحباً بكم في متجرنا الإلكتروني'
+  hero:
+    title: 'اكتشف منتجاتنا الاستثنائية'
+    subtitle: 'توصيل مجاني والدفع عند الاستلام لجميع مشترياتك'
+    shop_now: 'تسوق الآن'
+  categories:
+    title: 'فئاتنا'
+    view_products: 'عرض المنتجات'
+  featured:
+    title: 'المنتجات المميزة'
+    view_all: 'عرض جميع المنتجات'
+  features:
+    delivery:
+      title: 'توصيل سريع'
+      description: 'توصيل مجاني في جميع أنحاء تونس'
+    payment:
+      title: 'دفع آمن'
+      description: 'الدفع عند الاستلام - لا يوجد دفع إلكتروني'
+    security:
+      title: 'تسوق آمن'
+      description: 'بياناتك محمية'
+
+product:
+  in_stock: 'متوفر'
+  view_details: 'عرض التفاصيل'
+  add_to_cart: 'أضف إلى السلة'
+  login_to_buy: 'سجل دخول للشراء'
+  out_of_stock: 'نفذ من المخزون'
+  quantity: 'الكمية'
+  description: 'الوصف'
+  price: 'السعر'
+  category: 'الفئة'
+
+cart:
+  title: 'سلتي'
+  empty: 'سلتك فارغة'
+  subtotal: 'المجموع الفرعي'
+  total: 'المجموع'
+  checkout: 'إتمام الطلب'
+  continue_shopping: 'مواصلة التسوق'
+  remove: 'إزالة'
+  update: 'تحديث'
+  clear: 'تفريغ السلة'
+
+order:
+  checkout:
+    title: 'إتمام الطلب'
+    shipping_address: 'عنوان التوصيل'
+    phone: 'الهاتف'
+    notes: 'ملاحظات (اختياري)'
+    payment_method: 'طريقة الدفع'
+    cash_on_delivery: 'الدفع عند الاستلام'
+    place_order: 'تقديم الطلب'
+  success:
+    title: 'تم تأكيد الطلب'
+    message: 'تم تقديم طلبك بنجاح!'
+    order_number: 'رقم الطلب'
+    total: 'المجموع'
+    payment_info: 'ستدفع عند الاستلام'
+  my_orders:
+    title: 'طلباتي'
+    order_number: 'رقم الطلب'
+    date: 'التاريخ'
+    status: 'الحالة'
+    total: 'المجموع'
+    view: 'عرض'
+  status:
+    pending: 'في الانتظار'
+    processing: 'قيد المعالجة'
+    shipped: 'تم الشحن'
+    delivered: 'تم التوصيل'
+    cancelled: 'ملغي'
+
+admin:
+  dashboard:
+    title: 'لوحة التحكم'
+    total_orders: 'إجمالي الطلبات'
+    pending_orders: 'الطلبات المعلقة'
+    total_products: 'إجمالي المنتجات'
+    total_users: 'إجمالي المستخدمين'
+    recent_orders: 'الطلبات الحديثة'
+  orders:
+    title: 'إدارة الطلبات'
+    update_status: 'تحديث الحالة'
+  products:
+    title: 'إدارة المنتجات'
+    new: 'منتج جديد'
+    edit: 'تعديل المنتج'
+    name: 'الاسم'
+    description: 'الوصف'
+    price: 'السعر'
+    stock: 'المخزون'
+    image: 'الصورة'
+    category: 'الفئة'
+    save: 'حفظ'
+  categories:
+    title: 'إدارة الفئات'
+    new: 'فئة جديدة'
+
+footer:
+  about: 'حول'
+  description: 'متجرك الإلكتروني الموثوق لجميع احتياجاتك'
+  quick_links: 'روابط سريعة'
+  contact: 'اتصل بنا'
+  rights: 'جميع الحقوق محفوظة'
+
+auth:
+  login:
+    title: 'تسجيل الدخول'
+    email: 'البريد الإلكتروني'
+    password: 'كلمة المرور'
+    remember_me: 'تذكرني'
+    forgot_password: 'نسيت كلمة المرور؟'
+    no_account: 'ليس لديك حساب؟'
+    sign_up: 'سجل الآن'
+  register:
+    title: 'التسجيل'
+    first_name: 'الاسم الأول'
+    last_name: 'اسم العائلة'
+    email: 'البريد الإلكتروني'
+    password: 'كلمة المرور'
+    confirm_password: 'تأكيد كلمة المرور'
+    already_account: 'لديك حساب بالفعل؟'
+    sign_in: 'تسجيل الدخول'
+
+validation:
+  required: 'هذا الحقل مطلوب'
+  email: 'يرجى إدخال بريد إلكتروني صحيح'
+  min_length: 'يجب أن يحتوي هذا الحقل على {{ limit }} أحرف على الأقل'
+  password_mismatch: 'كلمات المرور غير متطابقة'

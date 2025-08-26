@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'nav.products'|trans }}{% endblock %}
+
+{% block body %}
+<div class="row">
+    <!-- Sidebar Filters -->
+    <div class="col-lg-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">{{ 'product.category'|trans }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="{{ path('app_products') }}" 
+                       class="list-group-item list-group-item-action {{ selected_category is null ? 'active' : '' }}">
+                        {{ 'product.all_categories'|trans|default('Toutes les catégories') }}
+                    </a>
+                    {% for category in categories %}
+                        <a href="{{ path('app_products', {'category': category.id}) }}" 
+                           class="list-group-item list-group-item-action {{ selected_category == category.id ? 'active' : '' }}">
+                            {{ category.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="col-lg-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>{{ 'nav.products'|trans }}</h2>
+            <div class="d-flex align-items-center">
+                <span class="text-muted me-3">{{ products|length }} {{ 'product.items_found'|trans|default('produits trouvés') }}</span>
+            </div>
+        </div>
+
+        {% if products is empty %}
+            <div class="text-center py-5">
+                <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">{{ 'product.no_products'|trans|default('Aucun produit trouvé') }}</h4>
+                <p class="text-muted">{{ 'product.no_products_message'|trans|default('Aucun produit disponible dans cette catégorie pour le moment.') }}</p>
+            </div>
+        {% else %}
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card product-card h-100">
+                            {% if product.image %}
+                                <img src="{{ asset('images/products/' ~ product.image) }}" class="card-img-top" alt="{{ product.name }}">
+                            {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="fas fa-box fa-3x text-muted"></i>
+                                </div>
+                            {% endif %}
+                            
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text text-muted">{{ product.description|slice(0, 100) }}...</p>
+                                
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="h5 text-primary mb-0">{{ product.price|number_format(2) }} DT</span>
+                                        <span class="badge bg-{{ product.stock > 0 ? 'success' : 'danger' }}">
+                                            {{ product.stock > 0 ? product.stock ~ ' ' ~ ('product.in_stock'|trans) : ('product.out_of_stock'|trans) }}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-outline-primary">
+                                            <i class="fas fa-eye me-1"></i>{{ 'product.view_details'|trans }}
+                                        </a>
+                                        
+                                        {% if app.user %}
+                                            {% if product.stock > 0 %}
+                                                <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="POST" class="d-inline">
+                                                    <button type="submit" class="btn btn-primary w-100">
+                                                        <i class="fas fa-cart-plus me-1"></i>{{ 'product.add_to_cart'|trans }}
+                                                    </button>
+                                                </form>
+                                            {% else %}
+                                                <button class="btn btn-secondary w-100" disabled>
+                                                    <i class="fas fa-times me-1"></i>{{ 'product.out_of_stock'|trans }}
+                                                </button>
+                                            {% endif %}
+                                        {% else %}
+                                            <a href="{{ path('app_login') }}" class="btn btn-primary">
+                                                <i class="fas fa-sign-in-alt me-1"></i>{{ 'product.login_to_buy'|trans }}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
