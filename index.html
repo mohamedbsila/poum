@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPods 3D Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>AirPods</h1>
+                <span class="subtitle">3rd Generation</span>
+            </div>
+            <nav class="nav">
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#specs" class="nav-link">Specs</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section with 3D Animation -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2 class="hero-title">Experience Sound Like Never Before</h2>
+                    <p class="hero-description">
+                        Immerse yourself in crystal-clear audio with our revolutionary AirPods. 
+                        Designed for comfort, engineered for performance.
+                    </p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary">Learn More</button>
+                        <button class="btn btn-secondary">Buy Now</button>
+                    </div>
+                </div>
+                
+                <div class="airpods-container">
+                    <div class="airpods-scene">
+                        <!-- 3D AirPods Box -->
+                        <div class="airpods-box" id="airpodsBox">
+                            <!-- Box Base -->
+                            <div class="box-base">
+                                <div class="box-front">
+                                    <div class="led-indicator"></div>
+                                </div>
+                                <div class="box-back"></div>
+                                <div class="box-left"></div>
+                                <div class="box-right"></div>
+                                <div class="box-bottom"></div>
+                                <div class="box-top"></div>
+                            </div>
+                            
+                            <!-- Box Lid -->
+                            <div class="box-lid" id="boxLid">
+                                <div class="lid-front"></div>
+                                <div class="lid-back"></div>
+                                <div class="lid-left"></div>
+                                <div class="lid-right"></div>
+                                <div class="lid-top"></div>
+                                <div class="lid-bottom"></div>
+                            </div>
+                            
+                            <!-- AirPods -->
+                            <div class="airpods" id="airpods">
+                                <div class="airpod airpod-left">
+                                    <div class="airpod-body">
+                                        <div class="airpod-speaker"></div>
+                                        <div class="airpod-sensor"></div>
+                                    </div>
+                                    <div class="airpod-stem">
+                                        <div class="airpod-marking">L</div>
+                                    </div>
+                                </div>
+                                <div class="airpod airpod-right">
+                                    <div class="airpod-body">
+                                        <div class="airpod-speaker"></div>
+                                        <div class="airpod-sensor"></div>
+                                    </div>
+                                    <div class="airpod-stem">
+                                        <div class="airpod-marking">R</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Interactive Controls -->
+                        <div class="controls">
+                            <button class="control-btn" id="rotateBtn">
+                                <span class="control-icon">🔄</span>
+                                <span class="control-text">Rotate & Open</span>
+                            </button>
+                            <button class="control-btn" id="resetBtn">
+                                <span class="control-icon">🏠</span>
+                                <span class="control-text">Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="section-header">
+                <h2>Revolutionary Features</h2>
+                <p>Discover what makes AirPods the ultimate wireless listening experience</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3>Adaptive Audio</h3>
+                    <p>Intelligent sound adjustment that adapts to your environment in real-time, delivering crystal-clear audio regardless of your surroundings.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔋</div>
+                    <h3>Extended Battery Life</h3>
+                    <p>Up to 6 hours of listening time on a single charge, with the charging case providing over 24 hours of total listening time.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Seamless Connectivity</h3>
+                    <p>Instant pairing with all your Apple devices. Switch between devices effortlessly with just a tap.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Precision Fit</h3>
+                    <p>Ergonomic design ensures a secure, comfortable fit that stays in place during any activity, from workouts to daily commutes.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌊</div>
+                    <h3>Sweat & Water Resistant</h3>
+                    <p>IPX4 rating ensures your AirPods can handle sweat and light water exposure during workouts and outdoor activities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎙️</div>
+                    <h3>Crystal Clear Calls</h3>
+                    <p>Advanced microphone technology with noise cancellation ensures your voice comes through clearly on every call.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Details Section -->
+        <section class="product-details" id="specs">
+            <div class="section-header">
+                <h2>Product Specifications</h2>
+                <p>Engineered to perfection, designed for life</p>
+            </div>
+            
+            <div class="details-container">
+                <div class="detail-section">
+                    <h3>AirPods Design</h3>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">Weight</span>
+                            <span class="spec-value">4.28g each</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Dimensions</span>
+                            <span class="spec-value">30.79 x 18.26 x 19.21mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Material</span>
+                            <span class="spec-value">Glossy white plastic</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Water Resistance</span>
+                            <span class="spec-value">IPX4</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>Charging Case</h3>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">Weight</span>
+                            <span class="spec-value">37.91g</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Dimensions</span>
+                            <span class="spec-value">46.40 x 21.38 x 54.40mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Material</span>
+                            <span class="spec-value">Glossy white plastic</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Charging</span>
+                            <span class="spec-value">MagSafe & Qi compatible</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>Audio Performance</h3>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">Driver</span>
+                            <span class="spec-value">Custom high-excursion</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Frequency Response</span>
+                            <span class="spec-value">20Hz - 20kHz</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Audio Codec</span>
+                            <span class="spec-value">AAC-ELD</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Microphone</span>
+                            <span class="spec-value">Dual beamforming</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>AirPods</h4>
+                    <p>Experience the future of wireless audio with unparalleled sound quality and seamless integration.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li>Adaptive Audio</li>
+                        <li>Extended Battery Life</li>
+                        <li>Seamless Connectivity</li>
+                        <li>Precision Fit</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li>User Guide</li>
+                        <li>Technical Support</li>
+                        <li>Warranty</li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AirPods Experience. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

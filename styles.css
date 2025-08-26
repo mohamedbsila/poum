@@ -1,0 +1,763 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #1d1d1f;
+    background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 0.2rem;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #86868b;
+    font-weight: 400;
+}
+
+.nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #1d1d1f;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #007aff;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #007aff;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2rem 4rem;
+    background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 50%, #f0f0f2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 45, 85, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.hero-text {
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #1d1d1f 0%, #434344 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    color: #86868b;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007aff 0%, #0056cc 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(0, 122, 255, 0.4);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1d1d1f;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* AirPods 3D Scene */
+.airpods-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    z-index: 2;
+}
+
+.airpods-scene {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.airpods-box {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    transform-style: preserve-3d;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Box Base */
+.box-base {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.box-front, .box-back, .box-left, .box-right, .box-bottom, .box-top {
+    position: absolute;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.box-front {
+    width: 200px;
+    height: 120px;
+    transform: translateZ(10px);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-back {
+    width: 200px;
+    height: 120px;
+    transform: translateZ(-10px) rotateY(180deg);
+    border-radius: 15px;
+}
+
+.box-left {
+    width: 20px;
+    height: 120px;
+    transform: translateX(-100px) rotateY(-90deg);
+    border-radius: 10px;
+}
+
+.box-right {
+    width: 20px;
+    height: 120px;
+    transform: translateX(100px) rotateY(90deg);
+    border-radius: 10px;
+}
+
+.box-bottom {
+    width: 200px;
+    height: 20px;
+    transform: translateY(60px) rotateX(-90deg);
+    border-radius: 10px;
+}
+
+.box-top {
+    width: 200px;
+    height: 20px;
+    transform: translateY(-60px) rotateX(90deg);
+    border-radius: 10px;
+}
+
+/* LED Indicator */
+.led-indicator {
+    width: 8px;
+    height: 8px;
+    background: #34c759;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(52, 199, 89, 0.6);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Box Lid */
+.box-lid {
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    transform-style: preserve-3d;
+    transform-origin: bottom;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lid-front, .lid-back, .lid-left, .lid-right, .lid-top, .lid-bottom {
+    position: absolute;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.lid-front {
+    width: 200px;
+    height: 120px;
+    transform: translateZ(10px);
+    border-radius: 15px;
+}
+
+.lid-back {
+    width: 200px;
+    height: 120px;
+    transform: translateZ(-10px) rotateY(180deg);
+    border-radius: 15px;
+}
+
+.lid-left {
+    width: 20px;
+    height: 120px;
+    transform: translateX(-100px) rotateY(-90deg);
+    border-radius: 10px;
+}
+
+.lid-right {
+    width: 20px;
+    height: 120px;
+    transform: translateX(100px) rotateY(90deg);
+    border-radius: 10px;
+}
+
+.lid-top {
+    width: 200px;
+    height: 20px;
+    transform: translateY(-60px) rotateX(90deg);
+    border-radius: 10px;
+}
+
+.lid-bottom {
+    width: 200px;
+    height: 20px;
+    transform: translateY(60px) rotateX(-90deg);
+    border-radius: 10px;
+}
+
+/* AirPods */
+.airpods {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.airpod {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    transform-style: preserve-3d;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.airpod-left {
+    left: 30px;
+    top: 20px;
+}
+
+.airpod-right {
+    right: 30px;
+    top: 20px;
+}
+
+.airpod-body {
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+    border-radius: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform-style: preserve-3d;
+}
+
+.airpod-speaker {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #1d1d1f;
+    border-radius: 50%;
+    top: 15px;
+    left: 24px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.airpod-sensor {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #1d1d1f;
+    border-radius: 50%;
+    top: 25px;
+    right: 8px;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.airpod-stem {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    bottom: -25px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.airpod-marking {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #86868b;
+    transform: scale(0.8);
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.control-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.control-icon {
+    font-size: 1.2rem;
+}
+
+/* Animation States */
+.airpods-box.opened {
+    transform: rotateY(180deg);
+}
+
+.airpods-box.opened .box-lid {
+    transform: rotateX(-110deg);
+}
+
+.airpods-box.opened .airpods {
+    transform: translateY(-20px) rotateY(180deg);
+}
+
+.airpods-box.opened .airpod {
+    transform: translateY(-10px);
+}
+
+/* Features Section */
+.features {
+    padding: 6rem 2rem;
+    background: #ffffff;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1d1d1f;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: #86868b;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 1);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1d1d1f;
+}
+
+.feature-card p {
+    color: #86868b;
+    line-height: 1.6;
+}
+
+/* Product Details Section */
+.product-details {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+}
+
+.details-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.detail-section {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.detail-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #1d1d1f;
+    text-align: center;
+}
+
+.spec-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.spec-label {
+    font-weight: 500;
+    color: #1d1d1f;
+}
+
+.spec-value {
+    font-weight: 600;
+    color: #007aff;
+}
+
+/* Footer */
+.footer {
+    background: #1d1d1f;
+    color: #ffffff;
+    padding: 4rem 2rem 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.footer-section p {
+    color: #86868b;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.8rem;
+    color: #86868b;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.footer-section ul li:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #86868b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .airpods-scene {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .airpods-box {
+        width: 150px;
+        height: 90px;
+    }
+    
+    .box-front, .box-back, .lid-front, .lid-back {
+        width: 150px;
+        height: 90px;
+    }
+    
+    .box-left, .box-right, .lid-left, .lid-right {
+        width: 15px;
+        height: 90px;
+    }
+    
+    .box-bottom, .box-top, .lid-bottom, .lid-top {
+        width: 150px;
+        height: 15px;
+    }
+    
+    .airpod {
+        width: 45px;
+        height: 60px;
+    }
+    
+    .airpod-body {
+        width: 45px;
+        height: 40px;
+    }
+    
+    .airpod-stem {
+        width: 15px;
+        height: 20px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .details-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 6rem 1rem 2rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-text, .airpods-container {
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Hover effects for interactive elements */
+.airpods-box:hover {
+    transform: scale(1.05);
+}
+
+.airpod:hover {
+    transform: scale(1.1);
+}
+
+/* Additional 3D effects */
+.airpods-box {
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+}
+
+.airpod {
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
